@@ -2,6 +2,7 @@ from tkinter import *
 from PIL import Image, ImageTk
 from functools import partial
 from matplotlib import *
+from web_scrape import *
 # matplotlib.use("TkAgg")
 
 # https://pythonprogramming.net/how-to-embed-matplotlib-graph-tkinter-gui/
@@ -9,6 +10,8 @@ from matplotlib import *
 root = Tk()
 root.title("Wired.com Trends")
 root.configure(background="grey")
+
+clear_file()
 
 def doNothing(num):
     if num == 1:
@@ -35,11 +38,14 @@ def doNothing(num):
     else:
         print("Doing whatever this button wants")
 
+    read_section(num)
+    print("Section Complete")
+
 # title = Label(root, text="Wired.com", bg='grey')
 # title.grid(row=0, columnspan=7)
 
-# img = Image.open("wired.jpg")
-img = Image.open("D:\PythonClassFiles\project\Super-Spice\wired.jpg")  #for my end
+img = Image.open("wired.jpg")
+#img = Image.open("D:\PythonClassFiles\project\Super-Spice\wired.jpg")  #for my end
 img = img.resize((250,50), Image.ANTIALIAS)
 photo = ImageTk.PhotoImage(img)
 
