@@ -1,7 +1,7 @@
 from tkinter import *
 from PIL import Image, ImageTk
 from functools import partial
-# from matplotlib import *
+from matplotlib import *
 # matplotlib.use("TkAgg")
 
 # https://pythonprogramming.net/how-to-embed-matplotlib-graph-tkinter-gui/
@@ -13,26 +13,27 @@ root.configure(background="grey")
 def doNothing(num):
     if num == 1:
         print("Passed in", num)
-        return
+        message.set("Passed in " + str(num))
     elif num == 2:
         print("Passed in", num)
-        return
+        message.set("Passed in " + str(num))
     elif num == 3:
         print("Passed in", num)
-        return
+        message.set("Passed in " + str(num))
     elif num == 4:
         print("Passed in", num)
-        return
+        message.set("Passed in " + str(num))
     elif num == 5:
         print("Passed in", num)
-        return
+        message.set("Passed in " + str(num))
     elif num == 6:
         print("Passed in", num)
-        return
+        message.set("Passed in " + str(num))
     elif num == 7:
         print("Passed in", num)
-        return
-    print("Doing whatever this button wants")
+        message.set("Passed in " + str(num))
+    else:
+        print("Doing whatever this button wants")
 
 # title = Label(root, text="Wired.com", bg='grey')
 # title.grid(row=0, columnspan=7)
@@ -72,6 +73,11 @@ button_6.grid(row=1, column=5, padx=5, pady=5)
 button_7 = Button(root, text="Transportation", height=3, width=10, command=partial(doNothing,7))
 # button_7.bind("<Button-1>", doNothing)
 button_7.grid(row=1, column=6, padx=5, pady=5)
+
+message = StringVar()
+Label(root, textvariable=message, bg='grey').grid(row=2, column=0, padx=5, pady=15, columnspan=7)
+# message = Label(text="Sample text", bg='grey')
+# message.grid(row=2, column=0, padx=5, pady=15, columnspan=7)
 
 # f = Figure(figsize=(5,5), dpi=100)
 # a = f.add_subplot(111)
