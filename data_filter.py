@@ -9,20 +9,44 @@
 def readDump(filename):
     return
     # open file
+    file = open(filename, "r")
+    print(file)
+    print("test")
+    
     # new dictionary
-    # for every word in file
-        # sequencial capital words are one key
-        
-        # single lowercase words are one key
-        
-        # if the key isn't in the list, add it
+    wordcount = {}
+    wordcount
 
-        # increase key value by one
+    # tracking important phrases requires this
+    phrase = ""
+
+    # for every word in file
+    for word in file.read().split():
+        # next word is capital
+        if word[0].isupper():
+            # add this word to the phrase
+            if phrase == "":
+                phrase += word
+            else:
+                phrase += " " + word
+
+        # next word is lowercase
+        else:
+            # if phrase is not ""
+            if not phrase == "":
+                # add the phrase to the dictionary and reset it
+                wordcount[phrase] += 1
+                phrase = ""
+
+            # add the word to the phrase
+            wordcount[word] += 1
+
     # return the dictionary
+    return wordcount
 
 
 # remove words from a list if filter(word) is true
-def removeByFilter(wordlist, filter)
+def removeByFilter(wordlist, filter):
     # make new wordlist
     #for word in wordlist
         # if not filter(word)
@@ -31,7 +55,7 @@ def removeByFilter(wordlist, filter)
     return
 
 # extract words from a list if filter(word) is true
-def extractByFilter(wordlist, filter)
+def extractByFilter(wordlist, filter):
     # make new wordlist
     #for word in wordlist
         # if filter(word)
