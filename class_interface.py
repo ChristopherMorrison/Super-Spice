@@ -39,7 +39,7 @@ class Window():
         Tk.Label(master, textvariable=self.message, bg='gray').grid(row=2, column=0, padx=5, pady=15, columnspan=7)
 
         self.f = Figure(figsize=(6, 5), dpi=80)
-        self.ax0 = self.f.add_axes((.25, .25, .5, .5), axisbg=(.75, .75, .75), frameon=False)
+        self.ax0 = self.f.add_axes((.12, .1, .8, .85), axisbg=(.75, .75, .75), frameon=False)
         self.ax0.set_xlabel('X Label')
         self.ax0.set_ylabel('Y Label')
         self.ax0.plot(np.max(np.random.rand(100, 10) * 10, axis=1), "r-")
