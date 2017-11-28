@@ -4,14 +4,16 @@ from functools import partial
 from matplotlib import *
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
+import numpy as np
 from web_scrape import *
+
 
 class Window():
     def __init__(self, master):
         self.frame = Tk.Frame(master)
 
         self.img = Image.open("wired.jpg")
-        # self.img = Image.open("D:\programming\PythonClassFiles\project\Super-Spice\wired.jpg")  #for my end
+        # self.img = Image.open("D:\programming\PythonClassFiles\project\Super-Spice\wired.jpg")  # for my end
         self.img = self.img.resize((250, 50), Image.ANTIALIAS)
         self.photo = ImageTk.PhotoImage(self.img)
 
@@ -34,7 +36,24 @@ class Window():
         self.transportation_button.grid(row=1, column=6, padx=5, pady=5)
 
         self.message = Tk.StringVar()
-        Tk.Label(master, textvariable=self.message, bg='gray').grid(row = 2, column=0, padx=5, pady=15, columnspan=7)
+        Tk.Label(master, textvariable=self.message, bg='gray').grid(row=2, column=0, padx=5, pady=15, columnspan=7)
+
+        self.f = Figure(figsize=(10, 9), dpi=80)
+        self.ax0 = self.f.add_axes((.25, .25, .5, .5), axisbg=(.75, .75, .75), frameon=False)
+        self.ax0.set_xlabel('X Label')
+        self.ax0.set_ylabel('Y Label')
+        self.ax0.plot(np.max(np.random.rand(100, 10) * 10, axis=1), "r-")
+
+        # self.frame = Tk.Frame(root)
+        self.frame.grid(row=3, column=1, padx=5, pady=15, columnspan=5)
+
+        self.canvas = FigureCanvasTkAgg(self.f, master=self.frame)
+        self.canvas.get_tk_widget().pack(side=Tk.TOP, fill=Tk.BOTH, expand=1)
+        self.canvas.show()
+
+        self.toolbar = NavigationToolbar2TkAgg(self.canvas, self.frame)
+        self.toolbar.pack()
+        self.toolbar.update()
 
     def buttonAction(self, num):
         catalog = {
@@ -66,7 +85,6 @@ class Window():
         read_section(num)
         print("Section Complete")
         self.message.set(catalog[num] + " section completed successfully")
-
 
 
 if __name__ == '__main__':
