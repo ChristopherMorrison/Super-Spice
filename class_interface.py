@@ -12,8 +12,8 @@ class Window():
     def __init__(self, master):
         self.frame = Tk.Frame(master)
 
-        self.img = Image.open("wired.jpg")
-        # self.img = Image.open("D:\programming\PythonClassFiles\project\Super-Spice\wired.jpg")  # for my end
+        # self.img = Image.open("wired.jpg")
+        self.img = Image.open("D:\programming\PythonClassFiles\project\Super-Spice\wired.jpg")  # for my end
         self.img = self.img.resize((250, 50), Image.ANTIALIAS)
         self.photo = ImageTk.PhotoImage(self.img)
 
@@ -38,7 +38,7 @@ class Window():
         self.message = Tk.StringVar()
         Tk.Label(master, textvariable=self.message, bg='gray').grid(row=2, column=0, padx=5, pady=15, columnspan=7)
 
-        self.f = Figure(figsize=(10, 9), dpi=80)
+        self.f = Figure(figsize=(6, 5), dpi=80)
         self.ax0 = self.f.add_axes((.25, .25, .5, .5), axisbg=(.75, .75, .75), frameon=False)
         self.ax0.set_xlabel('X Label')
         self.ax0.set_ylabel('Y Label')
