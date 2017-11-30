@@ -37,28 +37,21 @@ def read_page(urlstring):
 
     return
 
-def read_section(choice, message):
+def read_section(choice):
     # Determine section (doesn't do anything, probably remove?)
     if   choice == 1:
-        message.set('Getting article text from Business category')
         urlstring = 'https://www.wired.com/category/business/'
     elif choice == 2:
-        message.set('Getting article text from Culture category')
         urlstring = 'https://www.wired.com/category/culture/'
     elif choice == 3:
-        message.set('Getting article text from Design category')
         urlstring = 'https://www.wired.com/category/design/'
     elif choice == 4:
-        message.set('Getting article text from Gear category')
         urlstring = 'https://www.wired.com/category/gear/'
     elif choice == 5:
-        message.set('Getting article text from Science category')
         urlstring = 'https://www.wired.com/category/science/'
     elif choice == 6:
-        message.set('Getting article text from Security category')
         urlstring = 'https://www.wired.com/category/security/'
     elif choice == 7:
-        message.set('Getting article text from Transportation category')
         urlstring = 'https://www.wired.com/category/transportation/'
     else:
         urlstring = 'https://www.wired.com/'
@@ -83,10 +76,8 @@ def read_section(choice, message):
     for url_snippet in article_urls:
         count += 1
         print('Article ', count, ' of ', total)
-        message.set('Article ' + str(count) + ' of ' + str(total))
         url_full = 'https://www.wired.com' + url_snippet
         read_page(url_full)
     
-    message.set('Section Analysis Complete')
 
     return

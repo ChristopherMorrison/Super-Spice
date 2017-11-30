@@ -38,7 +38,7 @@ def doNothing(num):
     else:
         print("Doing whatever this button wants")
 
-    read_section(num, message)
+    read_section(num)
     print("Section Complete")
 
 # title = Label(root, text="Wired.com", bg='grey')
