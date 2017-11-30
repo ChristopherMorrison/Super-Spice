@@ -24,10 +24,13 @@ def read_page(urlstring):
     response = urllib.request.urlopen(urlstring)
     page_source = response.read()
 
-    # Parse HTML, isolate article, convert to string
-    page_source_soup = BeautifulSoup(page_source, 'html.parser')
+    # Parse HTML, isolate article, convert to string 
+    # page_source_soup = BeautifulSoup(page_source, 'html.parser')
+    page_source_soup = BeautifulSoup(page_source.decode('utf-8', 'ignore'), 'lxml')
     article_text = page_source_soup.article
     article_text = article_text.get_text()
+    article_text = article_text.encode('ascii', 'ignore')
+    
 
     # Print File for data analysis
     print_file(article_text)
@@ -35,7 +38,7 @@ def read_page(urlstring):
     return
 
 def read_section(choice, message):
-    # Determine section
+    # Determine section (doesn't do anything, probably remove?)
     if   choice == 1:
         message.set('Getting article text from Business category')
         urlstring = 'https://www.wired.com/category/business/'
