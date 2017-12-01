@@ -6,6 +6,7 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 import numpy as np
 from web_scrape import *
+import matplotlib.pyplot as plt
 
 
 class Window():
@@ -13,6 +14,7 @@ class Window():
         # create frame
         self.frame = Tk.Frame(master)
 
+        # title and background color
         master.title('Wired.com Trends')
         master.configure(background='gray')
 
@@ -43,22 +45,48 @@ class Window():
 
         # message
         self.message = Tk.StringVar()
-        Tk.Label(master, textvariable=self.message, bg='gray').grid(row=2, column=0, padx=5, pady=15, columnspan=7)
+        Tk.Label(master, textvariable=self.message, bg='gray').grid(row=2, column=0, padx=5, pady=5, columnspan=7)
 
-        # plot
-        self.f = Figure(figsize=(6, 5), dpi=80)
-        self.ax0 = self.f.add_axes((.12, .1, .8, .85), axisbg=(.75, .75, .75), frameon=False)
-        self.ax0.set_xlabel('X Label')
-        self.ax0.set_ylabel('Y Label')
-        self.ax0.plot(np.max(np.random.rand(100, 10) * 10, axis=1), "r-")
+        # line plot
+        # self.f = Figure(figsize=(6, 5), dpi=80)
+        # self.ax0 = self.f.add_axes((.12, .1, .8, .85), axisbg=(.75, .75, .75), frameon=False)
+        # self.ax0.set_xlabel('X Label')
+        # self.ax0.set_ylabel('Y Label')
+        # self.ax0.plot(np.max(np.random.rand(100, 10) * 10, axis=1), "r-")
+        #
+        # self.frame.grid(row=3, column=1, padx=5, pady=15, columnspan=5)
+        #
+        # self.canvas = FigureCanvasTkAgg(self.f, master=self.frame)
+        # self.canvas.get_tk_widget().pack(side=Tk.TOP, fill=Tk.BOTH, expand=1)
+        # self.canvas.show()
 
-        self.frame.grid(row=3, column=1, padx=5, pady=15, columnspan=5)
+        # self.f = Figure(figsize=(6, 5), dpi=100)
+        # ax = self.f.add_subplot(111)
+        # data = (20, 35, 30, 35, 27)
+        # ind = np.arange(5)  # x bars
+        #
+        # rects1 = ax.bar(ind, data, .5)
+        # canvas = FigureCanvasTkAgg(self.f, master)
+        # canvas.show()
+        # canvas.get_tk_widget().grid(row=3, column=1, padx=5, pady=15, columnspan=5)
 
-        self.canvas = FigureCanvasTkAgg(self.f, master=self.frame)
-        self.canvas.get_tk_widget().pack(side=Tk.TOP, fill=Tk.BOTH, expand=1)
-        self.canvas.show()
+        # bar plot
+        import pylab
+        import scipy
 
-        self.toolbar = NavigationToolbar2TkAgg(self.canvas, self.frame)
+        x = scipy.arange(7)
+        y = scipy.array([4, 7, 6, 5, 8, 11, 1])
+        f = pylab.figure()
+        ax = f.add_axes([.1, .1, .8, .8])
+        ax.bar(x, y, align='center')
+        ax.set_xticks(x)
+        ax.set_xticklabels(['word1', 'word2', 'word3', 'word4', 'word5', 'word6', 'word7'])
+        canvas = FigureCanvasTkAgg(f, master)
+        canvas.show()
+        canvas.get_tk_widget().grid(row=3, column=0, padx=5, pady=15, columnspan=7)
+
+        # toolbar at base of plot
+        self.toolbar = NavigationToolbar2TkAgg(canvas, self.frame)
         self.toolbar.pack()
         self.toolbar.update()
 
@@ -73,33 +101,15 @@ class Window():
             6: 'Security',
             7: 'Transportation'
         }
-        # if num == 1:
-        #     self.message.set("Asked for " + catalog[num] + " section")
-        # elif num == 2:
-        #     self.message.set("Asked for " + catalog[num] + " section")
-        # elif num == 3:
-        #     self.message.set("Asked for " + catalog[num] + " section")
-        # elif num == 4:
-        #     self.message.set("Asked for " + catalog[num] + " section")
-        # elif num == 5:
-        #     self.message.set("Asked for " + catalog[num] + " section")
-        # elif num == 6:
-        #     self.message.set("Asked for " + catalog[num] + " section")
-        # elif num == 7:
-        #     self.message.set("Asked for " + catalog[num] + " section")
-        # else:
-        #     self.message.set("...")
+        self.message.set("Reading " + catalog[num])
+        self.frame.update()
 
         read_section(num)
         print("Section Complete")
-        # self.message.set(catalog[num] + " section completed successfully")
+        self.message.set(catalog[num] + " section read successfully")
 
 
 if __name__ == '__main__':
     root = Tk.Tk()
     app = Window(root)
-    # root.title("Wired.com Trends")  # Window title
-    # root.configure(background='gray')  #interface background
-    root.update()
-    root.deiconify()
     root.mainloop()
