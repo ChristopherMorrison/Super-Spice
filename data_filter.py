@@ -4,8 +4,22 @@
 commons = open("./20k_common_english_words.txt")
 commons = commons.read().split()
 
-# read in all the data from filename and run the first
-# half of count sort on it to create a dictionary
+# quick unique word filter
+def Filter_File(filename, word_count = 10):
+    # read in words
+    word_list = readDump(filename)
+
+    # filter
+    word_list = removeByFilter(word_list, is_common_word)
+    word_list = removeByFilter(word_list, is_url)
+    word_list = removeByFilter(word_list, is_number)
+    word_list = removeByOccuranceMin(word_list,3)
+    word_list = extractByFilter(word_list, is_title)
+    word_list = extractTopN(word_list, word_count)
+    # return
+    return word_list
+
+# read data
 def readDump(filename):
     # open file
     file = open(filename)
@@ -44,7 +58,7 @@ def readDump(filename):
     # return the dictionary
     return wordcount
 
-# remove words from a list if filter(word) is true
+# Filter Types
 def removeByFilter(wordlist, filter_function):
     # make new wordlist
     newwordlist = {}
@@ -58,8 +72,6 @@ def removeByFilter(wordlist, filter_function):
     
     #return new list
     return newwordlist
-
-# extract words from a list if filter(word) is true
 def extractByFilter(wordlist, filter_function):
     # make new wordlist
     newwordlist = {}
@@ -73,13 +85,51 @@ def extractByFilter(wordlist, filter_function):
     
     #return new list
     return newwordlist
+def removeByOccuranceMin(wordlist, occurance_min):
+    # make new wordlist
+    newwordlist = {}
 
-#return true if word is one of the 100 most common words in the english language
+    #for word in wordlist
+    for word in wordlist:
+        # if word occurs >= occurance_min times
+        if wordlist[word] > occurance_min:
+            # newlist.append word
+            newwordlist[word] = wordlist[word]
+    
+    #return new list
+    return newwordlist
+def extractTopN(wordlist, count):
+    newwordlist = {}
+
+    # find the top (count) words in the wordlist and return
+    for _ in range(count):
+        max_word = ''
+        max_value = 0
+        for word in wordlist:
+            if wordlist[word] > max_value:
+                max_word = word
+                max_value = wordlist[word]
+        newwordlist[max_word] = wordlist.pop(max_word)
+        
+
+    return newwordlist
+
+# Filter Functions
 def is_common_word(word):
     #if word in commons
-    return word in commons
-
+    return word.lower() in commons
 def word_is(compare_word):
     def fn(wrd):
         return wrd == compare_word
     return fn
+def is_url(word):
+    return 'https://' in word
+def is_number(word):
+    return word.isnumeric()
+def is_title(word):
+    return word.istitle()
+
+# testing area
+#x = Filter_File('./article.txt')
+#x = extractTopN(x, 10)
+#print(x)
