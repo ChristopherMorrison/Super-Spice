@@ -73,13 +73,14 @@ class Window():
         # canvas.get_tk_widget().grid(row=3, column=1, padx=5, pady=15, columnspan=5)
 
         # bar plot
-        x = scipy.arange(7)
-        y = scipy.array([4, 7, 6, 5, 8, 11, 1])
+        word_count = 10
+        x = scipy.arange(word_count)
+        y = scipy.array(range(word_count))
         f = pylab.figure()
         ax = f.add_axes([.1, .1, .8, .8])
         ax.bar(x, y, align='center')
         ax.set_xticks(x)
-        ax.set_xticklabels(['word1', 'word2', 'word3', 'word4', 'word5', 'word6', 'word7'])
+        ax.set_xticklabels( word_count*[''])
         canvas = FigureCanvasTkAgg(f, master)
         canvas.show()
         canvas.get_tk_widget().grid(row=3, column=0, padx=5, pady=15, columnspan=7)
@@ -91,6 +92,8 @@ class Window():
 
     def buttonAction(self, num):
         """Calling the section of articles depending on the button pressed"""
+
+        # Possible Selection
         catalog = {
             1: 'Business',
             2: 'Culture',
@@ -100,13 +103,18 @@ class Window():
             6: 'Security',
             7: 'Transportation'
         }
+
+        # Update GUI message
         self.message.set("Reading " + catalog[num])
         self.frame.update()
 
+        # Read in the data
         read_section(num)
         print("Section Complete")
         self.message.set(catalog[num] + " section read successfully")
 
+        # Filter and display the data
+        
 
 if __name__ == '__main__':
     root = Tk.Tk()
