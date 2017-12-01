@@ -3,6 +3,7 @@ from PIL import Image, ImageTk
 from functools import partial
 from matplotlib import *
 from web_scrape import *
+from data_filter import *
 # matplotlib.use("TkAgg")
 
 # https://pythonprogramming.net/how-to-embed-matplotlib-graph-tkinter-gui/
@@ -39,6 +40,7 @@ def doNothing(num):
         print("Doing whatever this button wants")
 
     read_section(num)
+    
     print("Section Complete")
 
 # title = Label(root, text="Wired.com", bg='grey')

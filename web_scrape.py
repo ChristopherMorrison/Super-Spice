@@ -79,5 +79,5 @@ def read_section(choice):
         url_full = 'https://www.wired.com' + url_snippet
         read_page(url_full)
     
-
+    
     return
