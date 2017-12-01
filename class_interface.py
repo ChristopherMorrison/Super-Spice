@@ -4,10 +4,12 @@ from functools import partial
 from matplotlib import *
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
-import numpy as np
-from web_scrape import *
 import matplotlib.pyplot as plt
+import numpy as np
+import pylab
+import scipy
 
+from web_scrape import *
 
 class Window():
     def __init__(self, master):
@@ -19,8 +21,8 @@ class Window():
         master.configure(background='gray')
 
         # header Photo
-        # self.img = Image.open("wired.jpg")
-        self.img = Image.open("D:\programming\PythonClassFiles\project\Super-Spice\wired.jpg")  # for my end
+        self.img = Image.open("./wired.jpg")
+        # self.img = Image.open("D:\programming\PythonClassFiles\project\Super-Spice\wired.jpg")  # for my end
         self.img = self.img.resize((250, 50), Image.ANTIALIAS)
         self.photo = ImageTk.PhotoImage(self.img)
 
@@ -71,9 +73,6 @@ class Window():
         # canvas.get_tk_widget().grid(row=3, column=1, padx=5, pady=15, columnspan=5)
 
         # bar plot
-        import pylab
-        import scipy
-
         x = scipy.arange(7)
         y = scipy.array([4, 7, 6, 5, 8, 11, 1])
         f = pylab.figure()
