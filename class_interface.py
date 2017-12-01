@@ -10,8 +10,13 @@ from web_scrape import *
 
 class Window():
     def __init__(self, master):
+        # create frame
         self.frame = Tk.Frame(master)
 
+        master.title('Wired.com Trends')
+        master.configure(background='gray')
+
+        # header Photo
         # self.img = Image.open("wired.jpg")
         self.img = Image.open("D:\programming\PythonClassFiles\project\Super-Spice\wired.jpg")  # for my end
         self.img = self.img.resize((250, 50), Image.ANTIALIAS)
@@ -20,6 +25,7 @@ class Window():
         self.imgLabel = Tk.Label(image=self.photo)
         self.imgLabel.grid(row=0, columnspan=7)
 
+        # buttons for each section of wired articles followed by placement
         self.business_button = Tk.Button(master, text="Business", height=3, width=10, command=partial(self.buttonAction, 1))
         self.business_button.grid(row=1, column=0, padx=5, pady=5)
         self.culture_button = Tk.Button(master, text="Culture", height=3, width=10, command=partial(self.buttonAction, 2))
@@ -35,16 +41,17 @@ class Window():
         self.transportation_button = Tk.Button(master, text="Transportation", height=3, width=10, command=partial(self.buttonAction, 7))
         self.transportation_button.grid(row=1, column=6, padx=5, pady=5)
 
+        # message
         self.message = Tk.StringVar()
         Tk.Label(master, textvariable=self.message, bg='gray').grid(row=2, column=0, padx=5, pady=15, columnspan=7)
 
+        # plot
         self.f = Figure(figsize=(6, 5), dpi=80)
         self.ax0 = self.f.add_axes((.12, .1, .8, .85), axisbg=(.75, .75, .75), frameon=False)
         self.ax0.set_xlabel('X Label')
         self.ax0.set_ylabel('Y Label')
         self.ax0.plot(np.max(np.random.rand(100, 10) * 10, axis=1), "r-")
 
-        # self.frame = Tk.Frame(root)
         self.frame.grid(row=3, column=1, padx=5, pady=15, columnspan=5)
 
         self.canvas = FigureCanvasTkAgg(self.f, master=self.frame)
@@ -56,6 +63,7 @@ class Window():
         self.toolbar.update()
 
     def buttonAction(self, num):
+        """Calling the section of articles depending on the button pressed"""
         catalog = {
             1: 'Business',
             2: 'Culture',
@@ -65,33 +73,33 @@ class Window():
             6: 'Security',
             7: 'Transportation'
         }
-        if num == 1:
-            self.message.set("Asked for " + catalog[num] + " section")
-        elif num == 2:
-            self.message.set("Asked for " + catalog[num] + " section")
-        elif num == 3:
-            self.message.set("Asked for " + catalog[num] + " section")
-        elif num == 4:
-            self.message.set("Asked for " + catalog[num] + " section")
-        elif num == 5:
-            self.message.set("Asked for " + catalog[num] + " section")
-        elif num == 6:
-            self.message.set("Asked for " + catalog[num] + " section")
-        elif num == 7:
-            self.message.set("Asked for " + catalog[num] + " section")
-        else:
-            self.message.set("...")
+        # if num == 1:
+        #     self.message.set("Asked for " + catalog[num] + " section")
+        # elif num == 2:
+        #     self.message.set("Asked for " + catalog[num] + " section")
+        # elif num == 3:
+        #     self.message.set("Asked for " + catalog[num] + " section")
+        # elif num == 4:
+        #     self.message.set("Asked for " + catalog[num] + " section")
+        # elif num == 5:
+        #     self.message.set("Asked for " + catalog[num] + " section")
+        # elif num == 6:
+        #     self.message.set("Asked for " + catalog[num] + " section")
+        # elif num == 7:
+        #     self.message.set("Asked for " + catalog[num] + " section")
+        # else:
+        #     self.message.set("...")
 
         read_section(num)
         print("Section Complete")
-        self.message.set(catalog[num] + " section completed successfully")
+        # self.message.set(catalog[num] + " section completed successfully")
 
 
 if __name__ == '__main__':
     root = Tk.Tk()
     app = Window(root)
-    root.title("Wired.com Trends")
-    root.configure(background='gray')
+    # root.title("Wired.com Trends")  # Window title
+    # root.configure(background='gray')  #interface background
     root.update()
     root.deiconify()
     root.mainloop()
