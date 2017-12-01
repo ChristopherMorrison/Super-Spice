@@ -3,9 +3,9 @@
 This project gives the user a simple interface which can be used to see what words are currently trending in the various sections of the wired.com news website.
 
 ## Group Members
-William Osbourne.
-Christopher Jantzen.
-Christopher Morrison.
+* William Osbourne.
+* Christopher Jantzen.
+* Christopher Morrison.
 
 ## Dependencies
 <List our package dependencies here and how to add them>
