@@ -12,5 +12,4 @@ This project gives the user a simple interface which can be used to see what wor
 This program depends on ... and they are (installed/accessed) by ...
 
 ## Usage
-<List how to use the program here>
-To use this program ...
+To use this program, git clone the repository. Then add executable rights to the run.sh script and call run.sh from the bash shell. Alternatively you can set your source to Virtual_Env/bin/activate and run the interface.py file using python3.

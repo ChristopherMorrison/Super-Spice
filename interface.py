@@ -26,9 +26,21 @@ def buttonAction(num):
     message.set("Reading " + catalog[num])
     frame.update()
 
+    # Download articles
     read_section(num)
     print("Section Complete")
     message.set(catalog[num] + " section read successfully")
+
+    #Data Filtering
+    message.set("Filtering results...")
+    word_list = Filter_File("./article.txt")
+
+    #Update Bar graph and frame
+    message.set("Displaying results...")
+    global bar_chart_axes
+    bar_chart_axes.bar(word_list.keys(), word_list.values(), align='center')
+
+    message.set("Finished")
 
 
 def main():
@@ -64,16 +76,18 @@ def main():
     message = Tk.StringVar()
     Tk.Label(root, textvariable=message, bg='gray').grid(row=2, column=0, padx=5, pady=5, columnspan=7)
 
-    # bar graph
-    number_of_words_to_show_because_we_dont_hardcode_numbers_without_documentation_jantzen = 7
+    # initial bar graph
+    number_of_words_to_show_because_we_dont_hardcode_numbers_without_documentation_jantzen = 10
     x = range(number_of_words_to_show_because_we_dont_hardcode_numbers_without_documentation_jantzen)
     y = range(number_of_words_to_show_because_we_dont_hardcode_numbers_without_documentation_jantzen)
-    f = pylab.figure()
-    ax = f.add_axes([.1, .1, .8, .8])
-    ax.bar(x, y, align='center')
-    ax.set_xticks(x)
-    ax.set_xticklabels(['word']*number_of_words_to_show_because_we_dont_hardcode_numbers_without_documentation_jantzen)
-    canvas = FigureCanvasTkAgg(f, root)
+    global bar_chart
+    bar_chart = pylab.figure()
+    global bar_chart_axes
+    bar_chart_axes = bar_chart.add_axes([.1, .1, .8, .8])
+    bar_chart_axes.bar(x, y, align='center')
+    bar_chart_axes.set_xticks(x)
+    bar_chart_axes.set_xticklabels(['word']*number_of_words_to_show_because_we_dont_hardcode_numbers_without_documentation_jantzen)
+    canvas = FigureCanvasTkAgg(bar_chart, root)
     canvas.show()
     canvas.get_tk_widget().grid(row=3, column=0, padx=5, pady=15, columnspan=7)
 
@@ -82,8 +96,10 @@ def main():
     toolbar.pack()
     toolbar.update()
 
-    root.mainloop()
+    #root.mainloop()
 
 message = None
 frame = None
+bar_chart = None
+bar_chart_axes = None
 main()
