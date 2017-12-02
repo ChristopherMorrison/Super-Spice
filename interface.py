@@ -51,7 +51,7 @@ def main():
     Labels = ["Business", "Culture", "Design", "Gear", "Science", "Security", "Transportation"]
     for i in range(len(Labels)):
         btn = Tk.Button(root, text=Labels[i], height=3, width=10, command=partial(buttonAction, i + 1))
-        btn.grid(row=1, column=i, padx=5, pady=5)
+        btn.grid(row=1, column=i, padx=5, pady=10)
 
     # creates a changable message label in the row below the buttons.
     global message
