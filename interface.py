@@ -65,13 +65,14 @@ def main():
     Tk.Label(root, textvariable=message, bg='gray').grid(row=2, column=0, padx=5, pady=5, columnspan=7)
 
     # bar graph
-    x = range(7)
-    y = range(7)
+    number_of_words_to_show_because_we_dont_hardcode_numbers_without_documentation_jantzen = 7
+    x = range(number_of_words_to_show_because_we_dont_hardcode_numbers_without_documentation_jantzen)
+    y = range(number_of_words_to_show_because_we_dont_hardcode_numbers_without_documentation_jantzen)
     f = pylab.figure()
     ax = f.add_axes([.1, .1, .8, .8])
     ax.bar(x, y, align='center')
     ax.set_xticks(x)
-    ax.set_xticklabels(['word1', 'word2', 'word3', 'word4', 'word5', 'word6', 'word7'])
+    ax.set_xticklabels(['word']*number_of_words_to_show_because_we_dont_hardcode_numbers_without_documentation_jantzen)
     canvas = FigureCanvasTkAgg(f, root)
     canvas.show()
     canvas.get_tk_widget().grid(row=3, column=0, padx=5, pady=15, columnspan=7)
