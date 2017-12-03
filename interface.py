@@ -1,7 +1,7 @@
 import tkinter as Tk
 from PIL import Image, ImageTk
 from functools import partial
-from matplotlib import *
+# from matplotlib import *
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
 import pylab
 from data_filter import *
@@ -26,30 +26,38 @@ def buttonAction(num):
     read_section(num)
     print("Section Complete")
     message.set(catalog[num] + " section read successfully")
+    frame.update()
 
-    #Data Filtering
+    # Data Filtering
     message.set("Filtering results...")
     word_list = Filter_File("./article.txt")
+    frame.update()
 
-    #Update Bar graph and frame
+    # Update Bar graph and frame
     message.set("Displaying results...")
-    global bar_chart_axes
-    bar_chart_axes.bar(word_list.keys(), word_list.values(), align='center')
+    frame.update()
+
+    # global bar_chart_axes
+    xlabels = list(word_list.keys())
+    yvals = list(word_list.values())
+
+    # print(xlabels)
+    # print(yvals)
 
     message.set("Finished")
+    frame.update()
+    main(False, xlabels, yvals)
 
 
-def main():
-    # initialize a window
-    root = Tk.Tk()
-
+def main(default=True, xlabels=None, yvals=None):
     # create a frame
     global frame
     frame = Tk.Frame()
 
-    # title and background color
+    # title and background color and window size
     root.title('Wired.com Trends')
     root.configure(background='gray')
+    root.geometry('810x950')
 
     # insert picture at the top
     img = Image.open("./wired.jpg")
@@ -62,37 +70,43 @@ def main():
     # when pressed, sends a value to the buttonAction function
     Labels = ["Business", "Culture", "Design", "Gear", "Science", "Security", "Transportation"]
     for i in range(len(Labels)):
-        btn = Tk.Button(root, text=Labels[i], height=3, width=10, command=partial(buttonAction, i + 1))
+        btn = Tk.Button(root, text=Labels[i], height=3, width=13, command=partial(buttonAction, i + 1))
         btn.grid(row=1, column=i, padx=5, pady=10)
 
     # creates a changable message label in the row below the buttons.
-    global message
-    message = Tk.StringVar()
-    Tk.Label(root, textvariable=message, bg='gray').grid(row=2, column=0, padx=5, pady=5, columnspan=7)
+    if default:
+        global message
+        message = Tk.StringVar()
+        Tk.Label(root, textvariable=message, bg='gray').grid(row=2, column=0, padx=5, pady=5, columnspan=7)
 
     # bar graph
     words = 7
     x = range(words)
     y = range(words)
-    f = pylab.figure()
-    global bar_chart_axes
-    bar_chart_axes = f.add_axes([.1, .1, .8, .8])
-    bar_chart_axes.bar(x, y, align='center')
-    bar_chart_axes.set_xticks(x)
-    bar_chart_axes.set_xticklabels(['word'] * words)
+    f = pylab.figure(figsize=(8, 7))
+
+    default_labels = ['word1', 'word2', 'word3', 'word4', 'word5', 'word6', 'word7']
+
+    bar_chart_axes = f.add_axes([.1, .1, .9, .9])
+    if default == True:
+        bar_chart_axes.bar(x, y, align='center')
+        bar_chart_axes.set_xticks(x)
+        bar_chart_axes.set_xticklabels(default_labels)
+    else:
+        bar_chart_axes.bar(x, yvals, align='center')
+        bar_chart_axes.set_xticks(x)
+        bar_chart_axes.set_xticklabels(xlabels)
+        pylab.xlabel('Most common words')
+        pylab.ylabel('Word frequency')
     canvas = FigureCanvasTkAgg(f, root)
     canvas.show()
     canvas.get_tk_widget().grid(row=3, column=0, padx=5, pady=15, columnspan=7)
+    frame.update()
 
-    # adds tool bar below the graph
-    toolbar = NavigationToolbar2TkAgg(canvas, frame)
-    toolbar.pack()
-    toolbar.update()
-
-    #root.mainloop()
+    root.mainloop()
 
 
 message = None
 frame = None
-bar_chart_axes = None
+root = Tk.Tk()  # initialize a window
 main()
