@@ -5,7 +5,7 @@ commons = open("./20k_common_english_words.txt")
 commons = commons.read().split()
 
 # quick unique word filter
-def Filter_File(filename, word_count = 10):
+def Filter_File(filename, word_count = 7):
     # read in words
     word_list = readDump(filename)
 
