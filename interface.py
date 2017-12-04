@@ -9,6 +9,10 @@ from web_scrape import *
 
 
 def buttonAction(num):
+
+    # clear text file
+    clear_file()
+
     """Calling the section of articles depending on the button pressed"""
     catalog = {
         1: 'Business',
@@ -53,9 +57,6 @@ def main(default=True, xlabels=None, yvals=None):
     # create a frame
     global frame
     frame = Tk.Frame()
-
-    # clear text file
-    clear_file()
 
     # title and background color and window size
     root.title('Wired.com Trends')
