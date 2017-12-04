@@ -54,6 +54,9 @@ def main(default=True, xlabels=None, yvals=None):
     global frame
     frame = Tk.Frame()
 
+    # clear text file
+    clear_file()
+
     # title and background color and window size
     root.title('Wired.com Trends')
     root.configure(background='gray')
